@@ -1,9 +1,9 @@
-class QuoteCombination {
+class Combination {
   final String code;
   final String codeIn;
   final String codeOut;
 
-  QuoteCombination({
+  Combination({
     required this.code,
     required this.codeIn,
     required this.codeOut,

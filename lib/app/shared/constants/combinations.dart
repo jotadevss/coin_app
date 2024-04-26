@@ -1,12 +1,12 @@
-import 'package:coin_app/app/interactor/value_objects/quote_combination.dart';
+import 'package:coin_app/app/interactor/entities/combination.dart';
 
 class Combinations {
-  List<QuoteCombination> get combinations {
-    final List<QuoteCombination> quotesCombinations = [];
+  List<Combination> get combinations {
+    final List<Combination> quotesCombinations = [];
 
     for (var code in _codeList) {
       final codeParts = code.split("-");
-      quotesCombinations.add(QuoteCombination(code: code, codeIn: codeParts[0], codeOut: codeParts[1]));
+      quotesCombinations.add(Combination(code: code, codeIn: codeParts[0], codeOut: codeParts[1]));
     }
 
     return quotesCombinations;
