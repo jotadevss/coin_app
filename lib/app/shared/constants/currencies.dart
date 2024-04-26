@@ -1,4 +1,4 @@
-import 'package:coin_app/app/interactor/entities/currency.dart';
+import 'package:coin_app/app/interactor/models/currency.dart';
 
 class Currencies {
   List<Currency> get currencies {

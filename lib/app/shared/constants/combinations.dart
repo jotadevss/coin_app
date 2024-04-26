@@ -1,4 +1,4 @@
-import 'package:coin_app/app/interactor/entities/combination.dart';
+import 'package:coin_app/app/interactor/models/combination.dart';
 
 class Combinations {
   List<Combination> get combinations {

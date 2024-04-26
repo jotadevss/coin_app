@@ -1,5 +1,6 @@
 class Quote {
-  final String combinationCode;
+  final String codes;
+  final String currencies;
   final double value;
   final double pctChange;
   final double varBid;
@@ -7,7 +8,8 @@ class Quote {
   final double low;
 
   Quote({
-    required this.combinationCode,
+    required this.codes,
+    required this.currencies,
     required this.value,
     required this.pctChange,
     required this.varBid,
