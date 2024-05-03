@@ -31,4 +31,17 @@ class HttpQuoteRepository implements IQuoteRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<Quote> getQuote(Combination combination) async {
+    try {
+      final params = combination.code;
+      final response = await _client.get(Uri.parse("$_baseUrl$params"));
+      final map = jsonDecode(response.body) as Map<String, dynamic>;
+      final quote = QuoteAdapter.fromMap(map);
+      return quote;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
