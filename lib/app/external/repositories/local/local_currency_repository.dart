@@ -14,4 +14,28 @@ class LocalCurrencyRepository implements ICurrencyRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<Currency> getByCodeIn(String codeIn) async {
+    try {
+      const currenciesMap = AppConstants.currencies;
+      final allCurrencies = CurrencyAdapter.fromMap(currenciesMap);
+      final currenciesByCodeIn = allCurrencies.where((e) => e.code == codeIn).toList();
+      return currenciesByCodeIn[0];
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<Currency> getByCodeOut(String codeOut) async {
+    try {
+      const currenciesMap = AppConstants.currencies;
+      final allCurrencies = CurrencyAdapter.fromMap(currenciesMap);
+      final currenciesByCodeOut = allCurrencies.where((e) => e.code == codeOut).toList();
+      return currenciesByCodeOut[0];
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
