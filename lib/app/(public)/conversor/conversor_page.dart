@@ -36,7 +36,7 @@ class _ConversorPageState extends State<ConversorPage> {
                 const InputValueForm(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: FlipCurrencies(onPressed: () {}),
+                  child: FlipCurrencies(onPressed: () {}, enable: false),
                 ),
                 CurrencyOut(showCurrencyBottomSheet: showCurrencyBottomSheet),
                 const Padding(
