@@ -1,7 +1,7 @@
 import 'package:coin_app/app/external/adapters/currencies_adapter.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/currencies_repository.dart';
 import 'package:coin_app/app/interactor/models/currency.dart';
-import 'package:coin_app/app/shared/constants/constants.dart';
+import 'package:coin_app/app/shared/constants.dart';
 
 class LocalCurrencyRepository implements ICurrencyRepository {
   @override

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:coin_app/app/interactor/models/currency.dart';
 
 sealed class CurrencyState {}
@@ -13,20 +14,24 @@ class EmptyCurrencyState extends CurrencyState {
 }
 
 class CurrencyInSelectedState extends CurrencyState {
+  final List<Currency> allCurrencies;
   final List<Currency> availableCurrenciesOut;
   final Currency currencyIn;
 
   CurrencyInSelectedState({
+    required this.allCurrencies,
     required this.availableCurrenciesOut,
     required this.currencyIn,
   });
 }
 
 class CurrencyOutSelectedState extends CurrencyState {
+  final List<Currency> allCurrencies;
   final List<Currency> availableCurrenciesIn;
   final Currency currencyOut;
 
   CurrencyOutSelectedState({
+    required this.allCurrencies,
     required this.availableCurrenciesIn,
     required this.currencyOut,
   });

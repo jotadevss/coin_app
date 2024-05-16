@@ -1,7 +1,7 @@
 import 'package:coin_app/app/external/adapters/combination_adapter.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/combination_repository.dart';
 import 'package:coin_app/app/interactor/models/combination.dart';
-import 'package:coin_app/app/shared/constants/constants.dart';
+import 'package:coin_app/app/shared/constants.dart';
 
 class LocalCombinationRepository implements ICombinationRepository {
   @override

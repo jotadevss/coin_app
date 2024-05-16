@@ -20,5 +20,5 @@ class AppStyle {
   static const String sTrendUpIcon = "lib/assets/icons/trend-up.svg";
 
   // Icons for currencies
-  String getCurrencyFlag(String code) => "lib/assets/flags/${code.toLowerCase()}.svg";
+  static String getCurrencyFlag(String code) => "lib/assets/flags/${code.toLowerCase()}.svg";
 }

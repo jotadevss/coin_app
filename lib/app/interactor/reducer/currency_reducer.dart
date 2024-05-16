@@ -91,9 +91,11 @@ class CurrencyReducer extends Reducer {
     late CurrencyState state;
 
     if (currentState is SuccessCurrencyState) {
+      final allCurrencies = await currencyRepository.getAllCurrencies();
       final newState = CurrencyOutSelectedState(
         availableCurrenciesIn: currentState.availableCurrenciesIn,
         currencyOut: currentState.currencyOut,
+        allCurrencies: allCurrencies,
       );
       state = newState;
     }
@@ -111,9 +113,11 @@ class CurrencyReducer extends Reducer {
     late CurrencyState state;
 
     if (currentState is SuccessCurrencyState) {
+      final allCurrencies = await currencyRepository.getAllCurrencies();
       final newState = CurrencyInSelectedState(
         availableCurrenciesOut: currentState.availableCurrenciesOut,
         currencyIn: currentState.currencyIn,
+        allCurrencies: allCurrencies,
       );
       state = newState;
     }
@@ -133,7 +137,8 @@ class CurrencyReducer extends Reducer {
     if (currentState is EmptyCurrencyState || currentState is CurrencyInSelectedState) {
       final codeOuts = await _getCodeByCurrency(CodeType.codeOut, selectedCurrency);
       final currenciesOut = await _getCurrenciesByCode(CodeType.codeOut, codeOuts);
-      final newState = CurrencyInSelectedState(availableCurrenciesOut: currenciesOut, currencyIn: selectedCurrency);
+      final allCurrencies = await currencyRepository.getAllCurrencies();
+      final newState = CurrencyInSelectedState(availableCurrenciesOut: currenciesOut, currencyIn: selectedCurrency, allCurrencies: allCurrencies);
       state = newState;
     }
 
@@ -171,10 +176,12 @@ class CurrencyReducer extends Reducer {
   Future<CurrencyState> _handlerCurrencyOutSelection(Currency selectedCurrency, CurrencyState currentState) async {
     late CurrencyState state;
 
-    if (currentState is EmptyCurrencyState || currentState is CurrencyInSelectedState) {
-      final codeOuts = await _getCodeByCurrency(CodeType.codeIn, selectedCurrency);
-      final currenciesOut = await _getCurrenciesByCode(CodeType.codeIn, codeOuts);
-      final newState = CurrencyInSelectedState(availableCurrenciesOut: currenciesOut, currencyIn: selectedCurrency);
+    if (currentState is EmptyCurrencyState || currentState is CurrencyOutSelectedState) {
+      final codeIns = await _getCodeByCurrency(CodeType.codeIn, selectedCurrency);
+      final currenciesIns = await _getCurrenciesByCode(CodeType.codeIn, codeIns);
+      final allCurrencies = await currencyRepository.getAllCurrencies();
+
+      final newState = CurrencyOutSelectedState(availableCurrenciesIn: currenciesIns, currencyOut: selectedCurrency, allCurrencies: allCurrencies);
       state = newState;
     }
 
