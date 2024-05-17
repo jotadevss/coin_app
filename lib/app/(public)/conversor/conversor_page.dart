@@ -5,6 +5,7 @@ import 'package:coin_app/app/(public)/conversor/components/flip_currencies_compo
 import 'package:coin_app/app/(public)/conversor/components/input_value_form_component.dart';
 import 'package:coin_app/app/(public)/conversor/components/main_app_bar_component.dart';
 import 'package:coin_app/app/(public)/conversor/components/quotation_value_component.dart';
+import 'package:coin_app/app/(public)/conversor/components/underline_text_button_component.dart';
 import 'package:coin_app/app/interactor/models/currency.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class ConversorPage extends StatefulWidget {
 
 class _ConversorPageState extends State<ConversorPage> {
   void showCurrencyBottomSheet(List<Currency> allCurrencies) {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +36,16 @@ class _ConversorPageState extends State<ConversorPage> {
                 const InputValueForm(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: FlipCurrencies(onPressed: () {}, enable: false),
+                  child: FlipCurrencies(onPressed: () {}, enable: true),
                 ),
                 CurrencyOut(showCurrencyBottomSheet: showCurrencyBottomSheet),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 28),
                   child: QuotationValue(),
+                ),
+                UnderlineTextButton(
+                  title: "Limpar todas moedas selecionadas",
+                  onPressed: () {},
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 10),
