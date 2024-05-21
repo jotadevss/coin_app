@@ -19,7 +19,7 @@ class SelectCurrency extends StatelessWidget {
   final String subtitle;
   final String iconPath;
   final void Function() onTap;
-  final void Function() onClear;
+  final void Function()? onClear;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class SelectCurrency extends StatelessWidget {
                 ),
               ),
             ),
-            if (SizeConfig.screenWidth! > 295)
+            if (SizeConfig.screenWidth! > 295 && onClear != null)
               LimitedBox(
                 maxWidth: SizeConfig.blockSizeHorizontal! * 10,
                 child: FittedBox(
@@ -114,7 +114,7 @@ class SelectCurrency extends StatelessWidget {
               ),
           ],
         ),
-        if (SizeConfig.screenWidth! < 295)
+        if (SizeConfig.screenWidth! < 295 && onClear != null)
           TextButton(
             onPressed: onClear,
             style: ButtonStyle(
