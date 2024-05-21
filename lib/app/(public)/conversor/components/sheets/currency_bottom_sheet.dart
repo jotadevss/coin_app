@@ -77,7 +77,7 @@ class CurrencyBottomSheet extends StatelessWidget {
                   leading: CircleAvatar(
                     radius: 20,
                     child: SvgPicture.asset(
-                      AppStyle.getCurrencyFlag(currencies[0].code),
+                      AppStyle.getCurrencyFlag(currency.code),
                       width: 40,
                     ),
                   ),
