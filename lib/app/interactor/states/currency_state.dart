@@ -1,7 +1,24 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:coin_app/app/interactor/models/currency.dart';
 
-sealed class CurrencyState {}
+sealed class CurrencyState {
+  T? when<T>({
+    required T? Function(InitCurrencyState state) init,
+    required T? Function(EmptyCurrencyState state) empty,
+    required T? Function(CurrencyInSelectedState state) currencyIn,
+    required T? Function(CurrencyOutSelectedState state) currencyOut,
+    required T? Function(SuccessCurrencyState state) success,
+    required T? Function(ErrorCurrencyState state) error,
+  }) {
+    return switch (this) {
+      InitCurrencyState s => init(s),
+      EmptyCurrencyState s => empty(s),
+      CurrencyInSelectedState s => currencyIn(s),
+      CurrencyOutSelectedState s => currencyOut(s),
+      SuccessCurrencyState s => success(s),
+      ErrorCurrencyState s => error(s),
+    };
+  }
+}
 
 class InitCurrencyState extends CurrencyState {}
 
