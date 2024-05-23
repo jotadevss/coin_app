@@ -20,6 +20,22 @@ class CurrencyReducer extends Reducer {
     on(() => [clearCurrencyInAction], _clearCurrencyIn);
     on(() => [clearCurrencyOutAction], _clearCurrencyOut);
     on(() => [clearAllCurrenciesAction], _clearAllCurrencies);
+    on(() => [filterCurrencyStringSearchAction], _filterCurrencyStringSearch);
+  }
+
+  void _filterCurrencyStringSearch() {
+    final input = inputSearchCurrencyText.value.toLowerCase();
+    if (input.isEmpty) searchCurrencyResultState.setValue([]);
+    final currencies = filterCurrencyStringSearchAction.value;
+    final filteredCurrencies = <Currency>[];
+    for (var currency in currencies) {
+      final code = currency.code.toLowerCase();
+      final name = currency.name.toLowerCase();
+      if (code.contains(input) || name.contains(input)) {
+        filteredCurrencies.add(currency);
+      }
+    }
+    searchCurrencyResultState.setValue(filteredCurrencies);
   }
 
   Future<void> _fetchAllCurrencies() async {

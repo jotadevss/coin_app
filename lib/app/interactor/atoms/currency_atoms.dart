@@ -4,6 +4,8 @@ import 'package:coin_app/app/interactor/states/currency_state.dart';
 
 // States
 final currencyState = Atom<CurrencyState>(InitCurrencyState());
+final inputSearchCurrencyText = Atom<String>("");
+final searchCurrencyResultState = Atom<List<Currency>>([]);
 
 // Actions
 final fetchAllCurrenciesAction = Atom.action();
@@ -13,3 +15,4 @@ final flipCurrenciesAction = Atom.action();
 final clearCurrencyInAction = Atom.action();
 final clearCurrencyOutAction = Atom.action();
 final clearAllCurrenciesAction = Atom.action();
+final filterCurrencyStringSearchAction = Atom<List<Currency>>([]);

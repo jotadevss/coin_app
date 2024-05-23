@@ -4,6 +4,7 @@ import 'package:coin_app/app/injector.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  // Setup project
   initializeConfigurations();
   registerInstances();
 

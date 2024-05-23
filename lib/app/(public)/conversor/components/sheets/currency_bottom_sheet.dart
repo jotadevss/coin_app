@@ -1,10 +1,12 @@
+import 'package:asp/asp.dart';
+import 'package:coin_app/app/interactor/atoms/currency_atoms.dart';
 import 'package:coin_app/app/interactor/models/currency.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:coin_app/app/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CurrencyBottomSheet extends StatelessWidget {
+class CurrencyBottomSheet extends StatefulWidget {
   const CurrencyBottomSheet({
     super.key,
     required this.currencies,
@@ -13,7 +15,16 @@ class CurrencyBottomSheet extends StatelessWidget {
   final List<Currency> currencies;
 
   @override
+  State<CurrencyBottomSheet> createState() => _CurrencyBottomSheetState();
+}
+
+class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
+  final TextEditingController controller = TextEditingController(text: inputSearchCurrencyText.value);
+
+  @override
   Widget build(BuildContext context) {
+    final searchCurrencyResult = context.select(() => searchCurrencyResultState.value);
+
     SizeConfig().init(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
@@ -39,6 +50,11 @@ class CurrencyBottomSheet extends StatelessWidget {
             ),
           ),
           TextField(
+            controller: controller,
+            onChanged: (text) {
+              inputSearchCurrencyText.setValue(text);
+              filterCurrencyStringSearchAction.setValue(widget.currencies);
+            },
             style: const TextStyle(
               fontSize: 16,
             ),
@@ -68,9 +84,10 @@ class CurrencyBottomSheet extends StatelessWidget {
           const SizedBox(height: 12),
           Expanded(
             child: ListView.builder(
-              itemCount: currencies.length,
+              itemCount: (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult.length : widget.currencies.length,
               itemBuilder: (context, index) {
-                final currency = currencies[index];
+                final currencyList = (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult : widget.currencies;
+                final currency = currencyList[index];
 
                 return ListTile(
                   onTap: () {},

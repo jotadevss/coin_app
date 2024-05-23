@@ -33,6 +33,10 @@ class _ConversorPageState extends State<ConversorPage> {
     final actualContext = _scaffoldKey.currentContext!;
     SizeConfig().init(actualContext);
 
+    // Clear list of all search currency by input
+    searchCurrencyResultState.setValue([]);
+    inputSearchCurrencyText.setValue("");
+
     showModalBottomSheet(
       context: actualContext,
       elevation: 0,
