@@ -5,14 +5,17 @@ import 'package:coin_app/app/shared/theme.dart';
 import 'package:coin_app/app/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:routefly/routefly.dart';
 
 class CurrencyBottomSheet extends StatefulWidget {
   const CurrencyBottomSheet({
     super.key,
     required this.currencies,
+    required this.onTap,
   });
 
   final List<Currency> currencies;
+  final void Function(Currency) onTap;
 
   @override
   State<CurrencyBottomSheet> createState() => _CurrencyBottomSheetState();
@@ -82,44 +85,99 @@ class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
             ),
           ),
           const SizedBox(height: 12),
-          Expanded(
-            child: ListView.builder(
-              itemCount: (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult.length : widget.currencies.length,
-              itemBuilder: (context, index) {
-                final currencyList = (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult : widget.currencies;
-                final currency = currencyList[index];
-
-                return ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(
-                    radius: 20,
+          if (widget.currencies.isEmpty)
+            SizedBox(
+              width: SizeConfig.screenWidth! / 1.2,
+              child: Column(
+                children: [
+                  SizedBox(height: SizeConfig.screenHeight! / 8),
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: AppStyle.kGrayFontColor.withOpacity(0.1),
                     child: SvgPicture.asset(
-                      AppStyle.getCurrencyFlag(currency.code),
-                      width: 40,
+                      "lib/assets/icons/search-not-found.svg",
+                      width: 28,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  title: Text(
-                    currency.name,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Text(
-                    currency.code,
+                  const SizedBox(height: 12),
+                  const Text(
+                    "Não encontrado!",
                     style: TextStyle(
-                      color: AppStyle.kGrayFontColor.withOpacity(0.5),
-                      fontSize: 12,
+                      color: Colors.black,
+                      fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
-                );
-              },
+                  const Text(
+                    "Não foi possível encontrar um câmbio disponível para a moeda selecionada",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppStyle.kGrayFontColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  OutlinedButton(
+                    onPressed: () {
+                      Routefly.pop(context);
+                    },
+                    style: ButtonStyle(
+                      side: const MaterialStatePropertyAll(BorderSide(color: AppStyle.kPrimaryColor)),
+                      overlayColor: MaterialStatePropertyAll(AppStyle.kPrimaryColor.withOpacity(0.1)),
+                    ),
+                    child: const Text(
+                      "Voltar para Início",
+                      style: TextStyle(
+                        color: AppStyle.kPrimaryColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          else
+            Expanded(
+              child: ListView.builder(
+                itemCount: (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult.length : widget.currencies.length,
+                itemBuilder: (context, index) {
+                  final currencyList = (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult : widget.currencies;
+                  final currency = currencyList[index];
+
+                  return ListTile(
+                    onTap: () {
+                      widget.onTap(currency);
+                    },
+                    leading: CircleAvatar(
+                      radius: 20,
+                      child: SvgPicture.asset(
+                        AppStyle.getCurrencyFlag(currency.code),
+                        width: 40,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    title: Text(
+                      currency.name,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: Text(
+                      currency.code,
+                      style: TextStyle(
+                        color: AppStyle.kGrayFontColor.withOpacity(0.5),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
