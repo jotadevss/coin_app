@@ -7,7 +7,7 @@ import 'package:coin_app/app/interactor/contracts/repositories/combination_repos
 import 'package:coin_app/app/interactor/contracts/repositories/currencies_repository.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/quote_repository.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/variation_repository.dart';
-import 'package:coin_app/app/interactor/reducer/currency_reducer.dart';
+import 'package:coin_app/app/interactor/reducer/conversor_reducer.dart';
 import 'package:flutter/material.dart';
 
 final autoInjector = AutoInjector();
@@ -22,11 +22,12 @@ void registerInstances() {
   autoInjector.addSingleton<ICombinationRepository>(LocalCombinationRepository.new);
   autoInjector.addSingleton<IQuoteRepository>(HttpQuoteRepository.new);
   autoInjector.addSingleton<IVariationRepository>(HttpVariationRepository.new);
+
   // registering reducers
-  autoInjector.addLazySingleton(CurrencyReducer.new);
+  autoInjector.addLazySingleton(ConversorReducer.new);
 
   autoInjector.commit();
 
   // instance reducers
-  autoInjector.get<CurrencyReducer>();
+  autoInjector.get<ConversorReducer>();
 }

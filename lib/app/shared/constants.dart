@@ -149,7 +149,6 @@ class AppConstants {
 
   static const combinations = [
     "USD-BRL",
-    "USD-BRL",
     "CAD-BRL",
     "EUR-BRL",
     "GBP-BRL",
@@ -277,7 +276,6 @@ class AppConstants {
     "USD-MMK",
     "USD-MOP",
     "USD-MRO",
-    "USD-MUR",
     "USD-MVR",
     "USD-MWK",
     "USD-MYR",
@@ -357,7 +355,6 @@ class AppConstants {
     "UAH-USD",
     "HUF-USD",
     "IDR-USD",
-    "USD-AOA",
     "VND-USD",
     "BYN-USD",
     "XBR-USD",
@@ -533,7 +530,6 @@ class AppConstants {
     "EUR-MMK",
     "EUR-MOP",
     "EUR-MRO",
-    "EUR-MUR",
     "EUR-MWK",
     "EUR-MYR",
     "EUR-NAD",
@@ -554,7 +550,6 @@ class AppConstants {
     "EUR-SAR",
     "EUR-SCR",
     "EUR-SDG",
-    "EUR-SDR",
     "EUR-SOS",
     "EUR-STD",
     "EUR-SVC",
@@ -606,7 +601,6 @@ class AppConstants {
     "GEL-EUR",
     "EUR-GEL",
     "IDR-EUR",
-    "EUR-AOA",
     "BYN-EUR",
     "PEN-EUR",
   ];

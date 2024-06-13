@@ -1,5 +1,6 @@
 import 'package:asp/asp.dart';
-import 'package:coin_app/app/interactor/atoms/currency_atoms.dart';
+import 'package:coin_app/app/interactor/actions/conversor_actions.dart';
+import 'package:coin_app/app/interactor/atoms/conversor_atoms.dart';
 import 'package:coin_app/app/interactor/models/currency.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:coin_app/app/size_config.dart';
@@ -22,11 +23,11 @@ class CurrencyBottomSheet extends StatefulWidget {
 }
 
 class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
-  final TextEditingController controller = TextEditingController(text: inputSearchCurrencyText.value);
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final searchCurrencyResult = context.select(() => searchCurrencyResultState.value);
+    final searchCurrencyResult = context.select(() => filttedCurrencyBySearch);
 
     SizeConfig().init(context);
     return Padding(
@@ -55,8 +56,9 @@ class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
           TextField(
             controller: controller,
             onChanged: (text) {
-              inputSearchCurrencyText.setValue(text);
-              filterCurrencyStringSearchAction.setValue(widget.currencies);
+              // inputSearchCurrencyText.setValue(text);
+              // currencyAction.value = SearchByTextCurrencyAction(input: text, currencies: widget.currencies);
+              conversorAction.setValue(SearchCurrencyByInputAction(input: text, currencies: widget.currencies));
             },
             style: const TextStyle(
               fontSize: 16,
@@ -141,6 +143,7 @@ class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
             Expanded(
               child: ListView.builder(
                 itemCount: (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult.length : widget.currencies.length,
+                prototypeItem: _getSizeExtentForChildWidget(),
                 itemBuilder: (context, index) {
                   final currencyList = (searchCurrencyResult.isNotEmpty || controller.text.isNotEmpty) ? searchCurrencyResult : widget.currencies;
                   final currency = currencyList[index];
@@ -148,6 +151,7 @@ class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
                   return ListTile(
                     onTap: () {
                       widget.onTap(currency);
+                      Routefly.pop(context);
                     },
                     leading: CircleAvatar(
                       radius: 20,
@@ -180,6 +184,37 @@ class _CurrencyBottomSheetState extends State<CurrencyBottomSheet> {
             ),
         ],
       ),
+    );
+  }
+
+  ListTile _getSizeExtentForChildWidget() {
+    return ListTile(
+      onTap: () {},
+      leading: CircleAvatar(
+        radius: 20,
+        child: SvgPicture.asset(
+          AppStyle.getCurrencyFlag(widget.currencies.first.code),
+          width: 40,
+        ),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      title: Text(
+        widget.currencies.first.name,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      subtitle: Text(
+        widget.currencies.first.code,
+        style: TextStyle(
+          color: AppStyle.kGrayFontColor.withOpacity(0.5),
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14),
     );
   }
 }

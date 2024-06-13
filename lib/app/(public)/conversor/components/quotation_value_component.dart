@@ -1,55 +1,67 @@
+import 'package:coin_app/app/shared/formatters/currency_formatter.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class QuotationValue extends StatelessWidget {
   const QuotationValue({
     super.key,
+    required this.rate,
+    required this.rateValue,
+    required this.codeIn,
+    required this.codeOut,
+    required this.input,
   });
+
+  final String codeIn;
+  final String codeOut;
+  final double rate;
+  final double rateValue;
+  final double input;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "BRL 5.00 =",
-          style: TextStyle(
+        Text(
+          "$codeIn $input =",
+          style: const TextStyle(
             color: AppStyle.kGrayFontColor,
             fontWeight: FontWeight.w500,
             fontSize: 14,
           ),
         ),
-        const IntrinsicWidth(
+        IntrinsicWidth(
           child: Column(
             children: [
               FittedBox(
                 child: Text(
-                  "0,961 USD",
-                  style: TextStyle(
+                  "${CurrencyFormatter.format((rateValue * 100).toString())} $codeOut",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                     fontSize: 48,
                   ),
                 ),
               ),
-              Divider(),
+              const Divider(),
             ],
           ),
         ),
         const SizedBox(height: 8),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
               TextSpan(
-                text: "1 USD = ",
-                style: TextStyle(
+                text: "1 $codeIn = ",
+                style: const TextStyle(
                   color: AppStyle.kGrayFontColor,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Qanelas',
                 ),
               ),
               TextSpan(
-                text: "5,20 BRL",
-                style: TextStyle(
+                text: "${CurrencyFormatter.format((rate * 100).toString())} $codeOut",
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Qanelas',

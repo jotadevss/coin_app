@@ -1,10 +1,14 @@
+import 'package:coin_app/app/interactor/actions/conversor_actions.dart';
+import 'package:coin_app/app/interactor/atoms/conversor_atoms.dart';
 import 'package:coin_app/app/shared/formatters/currency_formatter.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class InputValueForm extends StatefulWidget {
-  const InputValueForm({super.key});
+  const InputValueForm({super.key, required this.prefixCurrencyInCode});
+
+  final String prefixCurrencyInCode;
 
   @override
   State<InputValueForm> createState() => _InputValueFormState();
@@ -16,7 +20,8 @@ class _InputValueFormState extends State<InputValueForm> {
   @override
   void initState() {
     super.initState();
-    inputValueController = TextEditingController(text: CurrencyFormatter.format("0"));
+
+    inputValueController = TextEditingController(text: CurrencyFormatter.format((inputValueState.value * 100).toString()));
   }
 
   @override
@@ -44,7 +49,13 @@ class _InputValueFormState extends State<InputValueForm> {
         ],
         controller: inputValueController,
         onChanged: (text) {
-          if (text.isEmpty) inputValueController!.text = CurrencyFormatter.format("0");
+          if (text.isEmpty) {
+            inputValueController!.text = CurrencyFormatter.format("100");
+            conversorAction.setValue(ChangeInputValueRateAction(valueFormatted: inputValueController!.text));
+          }
+
+          conversorAction.setValue(ChangeInputValueRateAction(valueFormatted: text));
+          inputValueState.setValue(CurrencyFormatter.unformat(text));
         },
         keyboardType: TextInputType.number,
         textDirection: TextDirection.rtl,
@@ -55,7 +66,7 @@ class _InputValueFormState extends State<InputValueForm> {
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          prefixText: "BRL",
+          prefixText: widget.prefixCurrencyInCode,
           prefixStyle: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w500,

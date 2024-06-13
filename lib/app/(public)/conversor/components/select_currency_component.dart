@@ -17,7 +17,7 @@ class SelectCurrency extends StatelessWidget {
   final String label;
   final String title;
   final String subtitle;
-  final String iconPath;
+  final String? iconPath;
   final void Function() onTap;
   final void Function()? onClear;
 
@@ -58,7 +58,10 @@ class SelectCurrency extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: AppStyle.kPrimaryColor.withOpacity(0.1),
-                      child: SvgPicture.asset("lib/assets/icons/arrow-in.svg", width: 22),
+                      child: SvgPicture.asset(
+                        iconPath ?? "lib/assets/icons/arrow-in.svg",
+                        width: (iconPath != null) ? 40 : 22,
+                      ),
                     ),
                     const SizedBox(width: 16),
                     LimitedBox(
@@ -99,7 +102,7 @@ class SelectCurrency extends StatelessWidget {
                 maxWidth: SizeConfig.blockSizeHorizontal! * 10,
                 child: FittedBox(
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: onClear,
                     icon: const Icon(
                       Icons.close,
                       color: AppStyle.kPrimaryColor,

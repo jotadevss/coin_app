@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:coin_app/app/external/adapters/quote_adapter.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/quote_repository.dart';
 import 'package:coin_app/app/interactor/models/combination.dart';
@@ -38,7 +37,7 @@ class HttpQuoteRepository implements IQuoteRepository {
       final params = combination.code;
       final response = await _client.get(Uri.parse("$_baseUrl$params"));
       final map = jsonDecode(response.body) as Map<String, dynamic>;
-      final quote = QuoteAdapter.fromMap(map);
+      final quote = QuoteAdapter.fromMap(map["${combination.codeIn}${combination.codeOut}"]);
       return quote;
     } catch (e) {
       throw Exception(e);
