@@ -20,6 +20,10 @@ class CurrencyFormatter extends TextInputFormatter {
     return text;
   }
 
+  static String formatSimple(double text) {
+    return NumberFormat.compactSimpleCurrency().format(text);
+  }
+
   static double unformat(String text) {
     String newText = text.replaceAll(",", '');
     double result = double.parse(newText);

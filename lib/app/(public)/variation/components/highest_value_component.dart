@@ -25,14 +25,16 @@ class HighestValue extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 6),
-              child: SvgPicture.asset(
-                "lib/assets/icons/arrow-trend-up.svg",
-                width: 90,
+          FittedBox(
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: SvgPicture.asset(
+                  "lib/assets/icons/arrow-trend-up.svg",
+                  width: 90,
+                ),
               ),
             ),
           ),
@@ -51,8 +53,8 @@ class HighestValue extends StatelessWidget {
               FittedBox(
                 child: Text(
                   "${CurrencyFormatter.format((value * 100).toString())} $suffix",
-                  style: const TextStyle(
-                    fontSize: 26,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).textScaler.scale(24),
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),

@@ -8,6 +8,7 @@ import 'package:coin_app/app/interactor/contracts/repositories/currencies_reposi
 import 'package:coin_app/app/interactor/contracts/repositories/quote_repository.dart';
 import 'package:coin_app/app/interactor/contracts/repositories/variation_repository.dart';
 import 'package:coin_app/app/interactor/reducer/conversor_reducer.dart';
+import 'package:coin_app/app/interactor/reducer/variation_reducer.dart';
 import 'package:flutter/material.dart';
 
 final autoInjector = AutoInjector();
@@ -25,9 +26,11 @@ void registerInstances() {
 
   // registering reducers
   autoInjector.addLazySingleton(ConversorReducer.new);
+  autoInjector.addLazySingleton(VariationReducer.new);
 
   autoInjector.commit();
 
   // instance reducers
   autoInjector.get<ConversorReducer>();
+  autoInjector.get<VariationReducer>();
 }

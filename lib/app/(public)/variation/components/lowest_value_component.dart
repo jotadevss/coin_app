@@ -55,8 +55,8 @@ class LowestValue extends StatelessWidget {
               FittedBox(
                 child: Text(
                   "${CurrencyFormatter.format((value * 100).toString())} $suffix",
-                  style: const TextStyle(
-                    fontSize: 26,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).textScaler.scale(24),
                     color: AppStyle.kPrimaryColor,
                     fontWeight: FontWeight.w600,
                   ),
