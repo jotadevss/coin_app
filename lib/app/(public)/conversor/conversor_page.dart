@@ -8,12 +8,15 @@ import 'package:coin_app/app/(public)/conversor/components/select_currency_compo
 import 'package:coin_app/app/(public)/conversor/components/sheets/currency_bottom_sheet.dart';
 import 'package:coin_app/app/interactor/actions/conversor_actions.dart';
 import 'package:coin_app/app/interactor/atoms/conversor_atoms.dart';
+import 'package:coin_app/app/interactor/dto/quote_info_dto.dart';
 import 'package:coin_app/app/interactor/models/currency.dart';
 import 'package:coin_app/app/shared/theme.dart';
 import 'package:coin_app/app/size_config.dart';
+import 'package:coin_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:routefly/routefly.dart';
 
 class ConversorPage extends StatefulWidget {
   const ConversorPage({super.key});
@@ -119,7 +122,9 @@ class _ConversorPageState extends State<ConversorPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 10),
-              child: CustomFilledButton(onPressed: () {}),
+              child: CustomFilledButton(onPressed: () {
+                Routefly.push(routePaths.variation, arguments: QuoteInfoDTO(quote: state.quote));
+              }),
             ),
             const Text(
               "Ultima atualização ás 13:54",

@@ -69,6 +69,7 @@ class ConversorReducer extends Reducer {
       final newRateValue = (state.rate * value);
 
       final newState = SuccessConversorState(
+        quote: state.quote,
         allCurrencies: allCurrencies,
         currencyIn: state.currencyIn,
         currencyOut: state.currencyOut,
@@ -120,15 +121,17 @@ class ConversorReducer extends Reducer {
         return;
       }
 
-      final newRate = 1 / (state.rate);
-      final newRateValue = (state.rateValue / state.rate) * newRate;
+      final quote = await quoteRepository.getQuote(combination);
+      final rateValue = inputValueState.value * quote.value;
+      final rate = quote.value * 1;
 
       final newState = SuccessConversorState(
+        quote: state.quote,
         allCurrencies: allCurrencies,
         currencyIn: state.currencyOut,
         currencyOut: state.currencyIn,
-        rateValue: newRateValue,
-        rate: newRate,
+        rateValue: rateValue,
+        rate: rate,
       );
 
       conversorState.setValue(newState);
@@ -145,6 +148,7 @@ class ConversorReducer extends Reducer {
       final rate = quote.value;
 
       final newState = SuccessConversorState(
+        quote: quote,
         allCurrencies: allCurrencies,
         currencyIn: currencyIn,
         currencyOut: currencyOut,
@@ -213,6 +217,7 @@ class ConversorReducer extends Reducer {
 
         if (codeType == CodeType.codeIn) {
           newState = SuccessConversorState(
+            quote: quote,
             allCurrencies: allCurrencies,
             currencyIn: currency,
             currencyOut: state.currencyOut,
@@ -223,6 +228,7 @@ class ConversorReducer extends Reducer {
 
         if (codeType == CodeType.codeOut) {
           newState = SuccessConversorState(
+            quote: quote,
             allCurrencies: allCurrencies,
             currencyIn: state.currencyIn,
             currencyOut: currency,

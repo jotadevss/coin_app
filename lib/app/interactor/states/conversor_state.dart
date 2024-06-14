@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:coin_app/app/interactor/models/currency.dart';
+import 'package:coin_app/app/interactor/models/quote.dart';
 
 sealed class ConversorState {
   T? when<T>({
@@ -20,6 +21,7 @@ sealed class ConversorState {
 class InitConversorState extends ConversorState {}
 
 class SuccessConversorState extends ConversorState {
+  final Quote quote;
   final List<Currency> allCurrencies;
   final Currency currencyIn;
   final Currency currencyOut;
@@ -27,6 +29,7 @@ class SuccessConversorState extends ConversorState {
   final double rate;
 
   SuccessConversorState({
+    required this.quote,
     required this.allCurrencies,
     required this.currencyIn,
     required this.currencyOut,
