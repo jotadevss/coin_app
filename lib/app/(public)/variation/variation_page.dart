@@ -106,13 +106,15 @@ class _VariationPageState extends State<VariationPage> {
                               border: Border.all(color: AppStyle.kGrayFontColor.withOpacity(0.1)),
                               borderRadius: BorderRadius.circular(99),
                             ),
-                            child: const Text(
-                              "Últimos 15 Dias",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
+                            child: const FittedBox(
+                              child: Text(
+                                "Últimos 15 Dias",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),

@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Qanelas',
         primaryColor: AppStyle.kPrimaryColor,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: AppStyle.kPrimaryColor,
           selectionColor: AppStyle.kPrimaryColor,

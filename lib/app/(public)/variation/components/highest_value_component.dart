@@ -1,5 +1,6 @@
 import 'package:coin_app/app/shared/formatters/currency_formatter.dart';
 import 'package:coin_app/app/shared/theme.dart';
+import 'package:coin_app/app/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,18 +16,19 @@ class HighestValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(SizeConfig.screenWidth! * 0.07),
       decoration: BoxDecoration(
         color: AppStyle.kPrimaryColor,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FittedBox(
-            child: CircleAvatar(
+      child: FittedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
               radius: 20,
               backgroundColor: Colors.white,
               child: Padding(
@@ -37,21 +39,20 @@ class HighestValue extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Maior valor hoje",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+            const SizedBox(height: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Maior valor hoje",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 1),
-              FittedBox(
-                child: Text(
+                const SizedBox(height: 1),
+                Text(
                   "${CurrencyFormatter.format((value * 100).toString())} $suffix",
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).textScaler.scale(24),
@@ -59,10 +60,10 @@ class HighestValue extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
